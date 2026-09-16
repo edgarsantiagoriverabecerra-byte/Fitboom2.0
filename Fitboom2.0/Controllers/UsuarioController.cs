@@ -6,7 +6,7 @@ namespace FITBOOM.Controllers
     {
         public IActionResult Index()
         {
-            return Content("La vista Usuario funciona");
+            return Content("La vista Usuario funciona 👌");
         }
     }
 }
