@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using FITBOOM.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<FITBOOMContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ConexionSQL")
+    ));
 
 var app = builder.Build();
 
