@@ -6,6 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Registrar el acceso al contexto HTTP y las sesiones
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<FITBOOMContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("ConexionSQL")
@@ -25,6 +29,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Habilitar el uso de sesiones en la aplicación
+app.UseSession();
 
 app.UseAuthorization();
 

@@ -1,0 +1,226 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Configuración de Cuenta";
+    string rol = HttpContextAccessor.HttpContext?.Session.GetString("UsuarioRol") ?? "Cliente";
+    string rolNormalizado = rol.ToLower().Trim();
+}
+
+<div class="container mt-5 text-white">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="m-0" style="color: #ADFF2F;">Configuración de Cuenta</h2>
+        <span class="badge bg-secondary ms-3 text-uppercase">Perfil: @rol</span>
+    </div>
+
+    <!-- Alertas de Estado -->
+    @if (TempData["MensajeExitoConfig"] != null)
+    {
+        <div class="alert alert-success bg-dark text-success border-success mb-4">
+            @TempData["MensajeExitoConfig"]
+        </div>
+    }
+
+    @if (TempData["ErrorConfig"] != null)
+    {
+        <div class="alert alert-danger bg-dark text-danger border-danger mb-4">
+            @TempData["ErrorConfig"]
+        </div>
+    }
+
+    <div class="row">
+        <!-- Menú Lateral de Navegación -->
+        <div class="col-md-3 mb-4">
+            <div class="list-group bg-dark border border-secondary rounded overflow-hidden">
+                <a class="list-group-item list-group-item-action bg-dark text-white border-secondary active-custom active" id="tab-seguridad" data-bs-toggle="list" href="#sec-seguridad">
+                    <i class="bi bi-shield-lock me-2"></i> Cambiar Contraseña
+                </a>
+                <a class="list-group-item list-group-item-action bg-dark text-white border-secondary" id="tab-notificaciones" data-bs-toggle="list" href="#sec-notificaciones">
+                    <i class="bi bi-bell me-2"></i> Notificaciones
+                </a>
+
+                @* Opciones específicas según el Rol del usuario *@
+                @if (rolNormalizado == "cliente")
+                {
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-secondary" id="tab-preferencias" data-bs-toggle="list" href="#sec-preferencias-cliente">
+                        <i class="bi bi-person-gear me-2"></i> Preferencias Fitness
+                    </a>
+                }
+                else if (rolNormalizado == "entrenador")
+                {
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-secondary" id="tab-entrenador" data-bs-toggle="list" href="#sec-preferencias-entrenador">
+                        <i class="bi bi-activity me-2"></i> Agenda y Clientes
+                    </a>
+                }
+                else if (rolNormalizado == "nutricionista")
+                {
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-secondary" id="tab-nutricion" data-bs-toggle="list" href="#sec-preferencias-nutricion">
+                        <i class="bi bi-clipboard2-pulse me-2"></i> Consultas Nutricionales
+                    </a>
+                }
+                else if (rolNormalizado == "admin" || rolNormalizado == "administrador")
+                {
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-secondary" id="tab-admin" data-bs-toggle="list" href="#sec-preferencias-admin">
+                        <i class="bi bi-sliders me-2"></i> Parámetros del Sistema
+                    </a>
+                }
+            </div>
+        </div>
+
+        <!-- Área de Contenido por Pestaña -->
+        <div class="col-md-9">
+            <div class="tab-content">
+
+                <!-- 1. CAMBIAR CONTRASEÑA -->
+                <div class="tab-pane fade show active p-4 bg-dark rounded border border-secondary" id="sec-seguridad">
+                    <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Cambiar Contraseña</h4>
+
+                    <form asp-controller="Account" asp-action="CambiarContrasena" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña Actual</label>
+                            <input type="password" name="contrasenaActual" class="form-control bg-secondary text-white border-0" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nueva Contraseña</label>
+                            <input type="password" name="nuevaContrasena" class="form-control bg-secondary text-white border-0" minlength="4" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirmar Nueva Contraseña</label>
+                            <input type="password" name="confirmarContrasena" class="form-control bg-secondary text-white border-0" minlength="4" required />
+                        </div>
+
+                        <button type="submit" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                            Actualizar Contraseña
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 2. NOTIFICACIONES -->
+                <div class="tab-pane fade p-4 bg-dark rounded border border-secondary" id="sec-notificaciones">
+                    <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Preferencias de Notificación</h4>
+                    <form>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="notifEmail" checked />
+                            <label class="form-check-label" for="notifEmail">Recibir recordatorios por correo electrónico</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="notifPlanes" checked />
+                            <label class="form-check-label" for="notifPlanes">Notificar cuando se asigne o modifique una rutina/dieta</label>
+                        </div>
+                        <button type="button" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                            Guardar Preferencias
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 3. PERFIL CLIENTE -->
+                @if (rolNormalizado == "cliente")
+                {
+                    <div class="tab-pane fade p-4 bg-dark rounded border border-secondary" id="sec-preferencias-cliente">
+                        <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Preferencias de Entrenamiento</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Objetivo Principal</label>
+                                <select class="form-select bg-secondary text-white border-0">
+                                    <option value="perder_peso">Perder Peso / Grasa Corporal</option>
+                                    <option value="ganar_masa">Ganar Masa Muscular (Hipertrofia)</option>
+                                    <option value="resistencia">Mejorar Resistencia Física</option>
+                                    <option value="mantenimiento">Mantener Salud y Estilo de Vida</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Días disponibles por semana</label>
+                                <input type="number" class="form-control bg-secondary text-white border-0" min="1" max="7" value="4" />
+                            </div>
+                            <button type="button" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                                Guardar Ajustes
+                            </button>
+                        </form>
+                    </div>
+                }
+
+                <!-- 4. PERFIL ENTRENADOR -->
+                @if (rolNormalizado == "entrenador")
+                {
+                    <div class="tab-pane fade p-4 bg-dark rounded border border-secondary" id="sec-preferencias-entrenador">
+                        <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Ajustes de Agenda</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Capacidad máxima de clientes asignados</label>
+                                <input type="number" class="form-control bg-secondary text-white border-0" value="15" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Especialidad Principal</label>
+                                <input type="text" class="form-control bg-secondary text-white border-0" value="Fuerza y Acondicionamiento" />
+                            </div>
+                            <button type="button" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                                Actualizar Perfil Técnico
+                            </button>
+                        </form>
+                    </div>
+                }
+
+                <!-- 5. PERFIL NUTRICIONISTA -->
+                @if (rolNormalizado == "nutricionista")
+                {
+                    <div class="tab-pane fade p-4 bg-dark rounded border border-secondary" id="sec-preferencias-nutricion">
+                        <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Parámetros Nutricionales</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Unidades de Medida Preferidas</label>
+                                <select class="form-select bg-secondary text-white border-0">
+                                    <option value="metrico">Métrico (Kg / Cm / Kcal)</option>
+                                    <option value="imperial">Imperial (Lbs / Pulgadas / Kcal)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Fórmula Base para TMB</label>
+                                <select class="form-select bg-secondary text-white border-0">
+                                    <option value="harris">Harris-Benedict</option>
+                                    <option value="mifflin">Mifflin-St Jeor</option>
+                                    <option value="katch">Katch-McArdle</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                                Guardar Preferencias
+                            </button>
+                        </form>
+                    </div>
+                }
+
+                <!-- 6. PERFIL ADMINISTRADOR -->
+                @if (rolNormalizado == "admin" || rolNormalizado == "administrador")
+                {
+                    <div class="tab-pane fade p-4 bg-dark rounded border border-secondary" id="sec-preferencias-admin">
+                        <h4 class="mb-3" style="color: #ADFF2F; font-size: 18px;">Opciones de Plataforma</h4>
+                        <form>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="mantenimiento" />
+                                <label class="form-check-label" for="mantenimiento">Modo Mantenimiento de Plataforma</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="registroAbierto" checked />
+                                <label class="form-check-label" for="registroAbierto">Permitir Nuevos Registros de Clientes</label>
+                            </div>
+                            <button type="button" class="btn w-100 mt-2" style="background-color: #ADFF2F; color: black; font-weight: bold; border: none;">
+                                Aplicar Cambios Globales
+                            </button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .active-custom.active {
+        background-color: #ADFF2F !important;
+        color: #000 !important;
+        font-weight: bold;
+        border-color: #ADFF2F !important;
+    }
+</style>

@@ -16,5 +16,7 @@ namespace FITBOOM.Models
         public string Contraseña { get; set; }
 
         public string Rol { get; set; }
+
+        public bool Activo { get; set; } = true;
     }
 }

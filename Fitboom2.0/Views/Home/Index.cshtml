@@ -644,14 +644,23 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <!-- Formulario conectado al Backend en C# -->
+                    <form asp-controller="Account" asp-action="Login" method="post">
+
+                        @if (TempData["ErrorLogin"] != null)
+                        {
+                            <div class="alert alert-danger py-2 small" role="alert">
+                                @TempData["ErrorLogin"]
+                            </div>
+                        }
+
                         <div class="mb-3">
                             <label class="form-label small text-secondary">Correo</label>
-                            <input type="email" class="form-control bg-black text-white border-secondary" required>
+                            <input type="email" name="correo" class="form-control bg-black text-white border-secondary" placeholder="correo@ejemplo.com" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label small text-secondary">Contraseña</label>
-                            <input type="password" class="form-control bg-black text-white border-secondary" required>
+                            <input type="password" name="contrasena" class="form-control bg-black text-white border-secondary" required>
                         </div>
                         <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase">Entrar</button>
                     </form>
@@ -659,6 +668,7 @@
             </div>
         </div>
     </div>
+  
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

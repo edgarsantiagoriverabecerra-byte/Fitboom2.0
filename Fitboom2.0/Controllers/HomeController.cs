@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Fitboom2._0.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fitboom2._0.Controllers;
 
@@ -15,9 +16,13 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if (User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction("Index", "Usuario");
+        }
         return View();
     }
-
+    [Authorize]
     public IActionResult Privacy()
     {
         return View();

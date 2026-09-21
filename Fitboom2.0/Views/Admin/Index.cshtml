@@ -220,28 +220,26 @@
 
     <!-- Contenido Principal -->
     <main>
-        <div class="header-section">
-            <h1>Lista de Usuarios</h1>
-            <a asp-action="Create" class="btn fw-bold" style="background-color: #ADFF2F; color: #000;">
-                + Nuevo Usuario
-            </a>
-        </div>
+        <div class="container mt-4 text-white">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold" style="color: #ADFF2F;">Lista de Usuarios</h2>
+                <a asp-action="Create" class="btn fw-bold" style="background-color: #ADFF2F; color: #000;">+ Nuevo Usuario</a>
+            </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Contraseña</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle" style="background-color: #1a1a1a; border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #333;">
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Contraseña</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -251,24 +249,26 @@
                                 <td>********</td>
                                 <td>@item.Rol</td>
                                 <td>
-                                    <div class="actions">
-                                        <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn-accion">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn-accion">Detalles</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn-accion btn-eliminar">Eliminar</a>
-                                    </div>
+                                    <!-- Indicador visual del estado del usuario -->
+                                    @if (item.Activo)
+                                    {
+                                        <span class="badge px-2 py-1" style="background-color: #ADFF2F; color: #000; font-weight: bold;">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger px-2 py-1 text-white">Inactivo</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-outline-warning me-1">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-outline-info me-1">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-outline-danger">Eliminar</a>
                                 </td>
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" style="text-align: center;">No hay usuarios registrados en la base de datos.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
     </main>
 
     <!-- Footer -->

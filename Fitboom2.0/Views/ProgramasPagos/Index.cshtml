@@ -1,0 +1,211 @@
+﻿@{
+    ViewData["Title"] = "Programas y Pagos";
+}
+
+<div class="main-container">
+    <!-- Encabezado -->
+    <div class="header-section">
+        <h1 class="page-title">Programas Especializados y Pagos</h1>
+        <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearPrograma">+ Nuevo Programa</button>
+    </div>
+
+    <!-- Pestañas de Navegación -->
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="openTab('programas')">Programas de Entrenamiento</button>
+        <button class="tab-btn" onclick="openTab('pagos')">Historial de Pagos</button>
+    </div>
+
+    <!-- TAB 1: PROGRAMAS DE ENTRENAMIENTO -->
+    <div id="programas" class="tab-content active">
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Programa / Condición</th>
+                        <th>Duración</th>
+                        <th>Enfoque Principal</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Programa Diabetes</td>
+                        <td>50 - 65 min</td>
+                        <td>Absorción de azúcar mediante fuerza y cardio moderado</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit" onclick="editarPrograma(1, 'Programa Diabetes', '50 - 65 min', 'Absorción de azúcar mediante fuerza y cardio moderado')">Editar</button>
+                            <button class="btn-action details" onclick="verDetalles('Programa Diabetes', 'Absorción de azúcar mediante fuerza y cardio moderado', 'Ejercicios de resistencia muscular y caminata a ritmo sostenido. Evitar ayunos prolongados.')">Detalles</button>
+                            <button class="btn-action delete" onclick="eliminarPrograma(1)">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Programa Hipertensión</td>
+                        <td>45 - 60 min</td>
+                        <td>Control de presión arterial y cardio de bajo impacto</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit" onclick="editarPrograma(2, 'Programa Hipertensión', '45 - 60 min', 'Control de presión arterial y cardio de bajo impacto')">Editar</button>
+                            <button class="btn-action details" onclick="verDetalles('Programa Hipertensión', 'Control de presión arterial y cardio de bajo impacto', 'Ejercicios aeróbicos continuos. Evitar maniobras de Valsalva y cargas máximas.')">Detalles</button>
+                            <button class="btn-action delete" onclick="eliminarPrograma(2)">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Programa Obesidad y Sobrepeso</td>
+                        <td>50 - 65 min</td>
+                        <td>Protección articular e incremento de gasto calórico</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit" onclick="editarPrograma(3, 'Programa Obesidad y Sobrepeso', '50 - 65 min', 'Protección articular e incremento de gasto calórico')">Editar</button>
+                            <button class="btn-action details" onclick="verDetalles('Programa Obesidad y Sobrepeso', 'Protección articular e incremento de gasto calórico', 'Bajo impacto articular en elíptica y máquinas guiadas con progresiones semanales.')">Detalles</button>
+                            <button class="btn-action delete" onclick="eliminarPrograma(3)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: HISTORIAL DE PAGOS -->
+    <div id="pagos" class="tab-content" style="display: none;">
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Cliente</th>
+                        <th>Programa Asignado</th>
+                        <th>Monto</th>
+                        <th>Fecha de Pago</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Juan</td>
+                        <td>Programa Diabetes</td>
+                        <td>$120,000</td>
+                        <td>2026-09-01</td>
+                        <td><span class="badge active">Completado</span></td>
+                        <td>
+                            <button class="btn-action details" onclick="verDetalles('Pago #101 - Juan', 'Monto: $120,000', 'Fecha: 2026-09-01. Estado: Completado via transferencia.')">Detalles</button>
+                            <button class="btn-action delete" onclick="anularPago(101)">Anular</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Andres</td>
+                        <td>Programa Obesidad y Sobrepeso</td>
+                        <td>$120,000</td>
+                        <td>2026-09-15</td>
+                        <td><span class="badge active">Completado</span></td>
+                        <td>
+                            <button class="btn-action details" onclick="verDetalles('Pago #102 - Andres', 'Monto: $120,000', 'Fecha: 2026-09-15. Estado: Completado en efectivo.')">Detalles</button>
+                            <button class="btn-action delete" onclick="anularPago(102)">Anular</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: CREAR / EDITAR PROGRAMA -->
+<div class="modal fade" id="modalPrograma" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content style-dark-modal">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-lime" id="modalProgramaTitle">Nuevo Programa</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="ProgramasPagos" asp-action="GuardarPrograma" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="progId" name="Id" value="0" />
+                    <div class="mb-3">
+                        <label class="form-label text-white">Nombre / Condición Médica</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="progNombre" name="Nombre" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-white">Duración Recomendada</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="progDuracion" name="Duracion" placeholder="Ej: 45 - 60 min" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-white">Enfoque Principal</label>
+                        <textarea class="form-control bg-dark text-white border-secondary" id="progEnfoque" name="Enfoque" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: DETALLES -->
+<div class="modal fade" id="modalDetalles" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content style-dark-modal">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-lime" id="detallesTitulo">Detalles</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="text-white fw-bold" id="detallesSubtitulo"></h6>
+                <p class="text-muted mt-2" id="detallesCuerpo"></p>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        function editarPrograma(id, nombre, duracion, enfoque) {
+            document.getElementById('modalProgramaTitle').innerText = 'Editar Programa';
+            document.getElementById('progId').value = id;
+            document.getElementById('progNombre').value = nombre;
+            document.getElementById('progDuracion').value = duracion;
+            document.getElementById('progEnfoque').value = enfoque;
+            var modal = new bootstrap.Modal(document.getElementById('modalPrograma'));
+            modal.show();
+        }
+
+        function verDetalles(titulo, subtitulo, cuerpo) {
+            document.getElementById('detallesTitulo').innerText = titulo;
+            document.getElementById('detallesSubtitulo').innerText = subtitulo;
+            document.getElementById('detallesCuerpo').innerText = cuerpo;
+            var modal = new bootstrap.Modal(document.getElementById('modalDetalles'));
+            modal.show();
+        }
+
+        function eliminarPrograma(id) {
+            if (confirm('¿Está seguro de que desea eliminar este programa?')) {
+                window.location.href = '/ProgramasPagos/EliminarPrograma/' + id;
+            }
+        }
+
+        function anularPago(id) {
+            if (confirm('¿Está seguro de que desea anular este pago?')) {
+                window.location.href = '/ProgramasPagos/AnularPago/' + id;
+            }
+        }
+    </script>
+}
