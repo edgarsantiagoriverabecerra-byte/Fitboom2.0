@@ -90,7 +90,7 @@
                     <p class="text-uppercase small text-secondary mb-0">Tasa de Retención</p>
                 </div>
                 <div class="col-6 col-md-3">
-                    <h2 class="text-brand fw-bold mb-0">8</h2>
+                    <h3 class="text-brand fw-bold mb-0">8</h3>
                     <p class="text-uppercase small text-secondary mb-0">Años Transformando Vidas</p>
                 </div>
             </div>
@@ -528,138 +528,9 @@
         </div>
     </div>
 
-    <!-- ================= MODAL REGISTRO & DIAGNÓSTICO ================= -->
-    <div class="modal fade" id="modalOnboarding" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
-            <div class="modal-content fitboom-auth-modal p-4 p-md-5 position-relative">
-
-                <button type="button" class="btn-close-clean" data-bs-dismiss="modal" aria-label="Cerrar">&times;</button>
-
-                <div class="mb-4">
-                    <span class="auth-pretitle text-brand fw-bold d-block mb-1" id="stepSub">// CREAR CUENTA</span>
-                    <div class="d-flex justify-content-between align-items-end">
-                        <h2 class="auth-title brand-title text-white text-uppercase mb-0" id="wizardTitle">REGISTRO</h2>
-                        <span class="auth-step-badge" id="stepIndicator">PASO 1 / 2</span>
-                    </div>
-                </div>
-
-                <form id="registerWizardForm" novalidate>
-
-                    <!-- PASO 1: DATOS DE CUENTA -->
-                    <div id="step1Container">
-                        <div class="mb-3">
-                            <label class="auth-label">NOMBRE COMPLETO</label>
-                            <input type="text" id="regName" class="form-control auth-input" placeholder="Tu nombre" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="auth-label">CORREO ELECTRÓNICO</label>
-                            <input type="email" id="regEmail" class="form-control auth-input" placeholder="tu@email.com" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="auth-label">TELÉFONO</label>
-                            <input type="tel" id="regPhone" class="form-control auth-input" placeholder="+57 300 000 0000" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="auth-label">CONTRASEÑA</label>
-                            <input type="password" id="regPass" class="form-control auth-input" placeholder="Mínimo 6 caracteres" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="auth-label">CONFIRMAR CONTRASEÑA</label>
-                            <input type="password" id="regPassConf" class="form-control auth-input" placeholder="Repite tu contraseña" required>
-                        </div>
-
-                        <div id="step1Error" class="alert alert-danger py-2 small mb-3 d-none text-uppercase" style="font-size: 0.75rem;"></div>
-
-                        <button type="button" id="btnGoToStep2" class="btn btn-brand w-100 fw-bold text-uppercase py-2 mb-3">
-                            CONTINUAR AL DIAGNÓSTICO &rarr;
-                        </button>
-
-                        <div class="text-center">
-                            <small class="text-secondary" style="font-size: 0.82rem;">
-                                ¿Ya tienes cuenta?
-                                <a href="#" class="text-brand text-decoration-none fw-semibold" data-bs-toggle="modal" data-bs-target="#modalLogin" data-bs-dismiss="modal">Inicia sesión</a>
-                            </small>
-                        </div>
-                    </div>
-
-                    <!-- PASO 2: DIAGNÓSTICO Y RESTRICCIONES -->
-                    <div id="step2Container" style="display: none;">
-                        <p class="text-secondary small mb-3" style="font-size: 0.8rem; line-height: 1.4;">
-                            Indícanos tus objetivos y restricciones para adaptar tus rutinas de gimnasio y menús alimenticios.
-                        </p>
-
-                        <div class="mb-3">
-                            <label class="auth-label">OBJETIVO PRINCIPAL</label>
-                            <select id="diagGoal" class="form-select auth-input">
-                                <option value="hipertrofia">Ganancia muscular (Hipertrofia)</option>
-                                <option value="definicion">Pérdida de grasa / Definición</option>
-                                <option value="fuerza">Fuerza funcional y resistencia</option>
-                                <option value="rehabilitacion">Rehabilitación física / Movilidad</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="auth-label">RESTRICCIONES ALIMENTICIAS</label>
-                            <select id="diagDiet" class="form-select auth-input">
-                                <option value="ninguna">Ninguna</option>
-                                <option value="lactosa">Intolerancia a la lactosa</option>
-                                <option value="frutos_secos">Alergia a frutos secos / maní</option>
-                                <option value="gluten">Celiaquía / Sin gluten</option>
-                                <option value="vegetariano">Dieta Vegetariana / Vegana</option>
-                                <option value="sodio">Bajo en sodio / Hipertensión</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="auth-label">CONDICIONES MÉDICAS O LESIONES (OPCIONAL)</label>
-                            <textarea id="diagInjuries" class="form-control auth-input" rows="3" placeholder="Ej: Dolor en rodilla derecha al flexionar, molestia lumbar..."></textarea>
-                        </div>
-
-                        <div class="d-flex gap-2 mb-3">
-                            <button type="button" id="btnBackToStep1" class="btn btn-outline-light text-uppercase fw-bold px-3" style="font-size: 0.85rem;">
-                                &larr; VOLVER
-                            </button>
-                            <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase py-2" style="font-size: 0.85rem;">
-                                FINALIZAR REGISTRO & PLAN
-                            </button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Login -->
-    <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white border-secondary">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title fw-bold text-uppercase brand-title text-brand">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label small text-secondary">Correo</label>
-                            <input type="email" class="form-control bg-black text-white border-secondary" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small text-secondary">Contraseña</label>
-                            <input type="password" class="form-control bg-black text-white border-secondary" required>
-                        </div>
-                        <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase">Entrar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
+            
+    
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -708,73 +579,6 @@
             }, 350);
           };
 
-          // 2. Wizard de Registro en 2 pasos
-          const s1 = document.getElementById('step1Container');
-          const s2 = document.getElementById('step2Container');
-          const btnNext = document.getElementById('btnGoToStep2');
-          const btnPrev = document.getElementById('btnBackToStep1');
-          const title = document.getElementById('wizardTitle');
-          const sub = document.getElementById('stepSub');
-          const badge = document.getElementById('stepIndicator');
-          const errBox = document.getElementById('step1Error');
-
-          if (btnNext) {
-            btnNext.addEventListener('click', function () {
-              const name = document.getElementById('regName').value.trim();
-              const email = document.getElementById('regEmail').value.trim();
-              const phone = document.getElementById('regPhone').value.trim();
-              const pass = document.getElementById('regPass').value;
-              const passConf = document.getElementById('regPassConf').value;
-
-              if (!name || !email || !phone || !pass) {
-                errBox.textContent = 'Por favor completa todos los campos del registro.';
-                errBox.classList.remove('d-none');
-                return;
-              }
-
-              if (pass.length < 6) {
-                errBox.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-                errBox.classList.remove('d-none');
-                return;
-              }
-
-              if (pass !== passConf) {
-                errBox.textContent = 'Las contraseñas no coinciden.';
-                errBox.classList.remove('d-none');
-                return;
-              }
-
-              errBox.classList.add('d-none');
-              s1.style.display = 'none';
-              s2.style.display = 'block';
-              title.textContent = 'DIAGNÓSTICO';
-              sub.textContent = '// PERSONALIZACIÓN';
-              badge.textContent = 'PASO 2 / 2';
-            });
-          }
-
-          if (btnPrev) {
-            btnPrev.addEventListener('click', function () {
-              s2.style.display = 'none';
-              s1.style.display = 'block';
-              title.textContent = 'REGISTRO';
-              sub.textContent = '// CREAR CUENTA';
-              badge.textContent = 'PASO 1 / 2';
-            });
-          }
-
-          const form = document.getElementById('registerWizardForm');
-          if (form) {
-            form.addEventListener('submit', function (e) {
-              e.preventDefault();
-              const userName = document.getElementById('regName').value.trim();
-              alert(`¡Bienvenido a FITBOOM, ${userName}! Tu cuenta ha sido creada y tu plan de entrenamiento y nutrición se ha personalizado.`);
-              const modalEl = document.getElementById('modalOnboarding');
-              const modalInstance = bootstrap.Modal.getInstance(modalEl);
-              if (modalInstance) modalInstance.hide();
-            });
-          }
-        });
     </script>
 </body>
 </html>
