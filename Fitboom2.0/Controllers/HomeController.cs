@@ -16,12 +16,13 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (User.Identity.IsAuthenticated)
+        if (User.Identity?.IsAuthenticated == true)
         {
             return RedirectToAction("Index", "Usuario");
         }
         return View();
     }
+
     [Authorize]
     public IActionResult Privacy()
     {

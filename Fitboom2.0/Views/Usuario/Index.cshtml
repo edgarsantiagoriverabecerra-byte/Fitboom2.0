@@ -1,9 +1,6 @@
-﻿@model IEnumerable<TuProyecto.Models.Usuario>
-
-@{
-    ViewData["Title"] = "Usuarios";
+﻿@{
+    ViewData["Title"] = "Usuario";
 }
-
 <div class="container mt-4">
 
     <h1>Usuarios</h1>
@@ -50,3 +47,7 @@
     </table>
 
 </div>
+<form asp-controller="Usuario" asp-action="Logout" method="post" class="d-inline">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+</form>
