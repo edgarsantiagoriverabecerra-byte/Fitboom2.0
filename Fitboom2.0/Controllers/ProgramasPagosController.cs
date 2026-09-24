@@ -10,21 +10,21 @@ namespace TuProyecto.Controllers
         }
 
         [HttpPost]
-        public IActionResult GuardarPrograma(int id, string nombre, string duracion, string enfoque)
+        public IActionResult GuardarMembresia(int id, string nombre, string duracion, decimal precio, string beneficios)
         {
-            // Aquí irá la lógica de guardado/actualización en SQL Server
+            // Lógica de inserción/actualización de la membresía en la base de datos SQL Server
             return RedirectToAction("Index");
         }
 
-        public IActionResult EliminarPrograma(int id)
+        public IActionResult EliminarMembresia(int id)
         {
-            // Aquí irá la lógica para eliminar o desactivar en SQL Server
+            // Lógica para eliminar la membresía en SQL Server
             return RedirectToAction("Index");
         }
 
         public IActionResult AnularPago(int id)
         {
-            // Aquí irá la lógica para anular el registro de pago
+            // Lógica para anular el pago en SQL Server
             return RedirectToAction("Index");
         }
     }
