@@ -1,13 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
-@{
-    // Obtener la foto de perfil guardada en la sesión (o la imagen predeterminada si es nula)
-    string fotoPerfil = HttpContextAccessor.HttpContext?.Session.GetString("UsuarioFoto") ?? "/images/imagen predeterminada.jpg";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -32,51 +23,30 @@
             <span style="color: #ADFF2F; font-weight: bold; font-size: 24px;">FITBOOM</span>
         </div>
 
-        <!-- Enlaces del menú -->
-        <ul class="nav-links list-unstyled d-flex gap-4 m-0">
-            <li><a href="#" class="text-white text-decoration-none">INICIO</a></li>
-            <li><a asp-controller="ProgramasPagos" asp-action="Index" class="text-white text-decoration-none">PROGRAMAS Y PAGOS</a></li>
-            <li><a href="#" class="text-white text-decoration-none">NUESTRO EQUIPO</a></li>
+    <!-- Enlaces del menú -->
+    <ul class="nav-links list-unstyled d-flex gap-4 m-0">
+        <li><a href="#" class="text-white text-decoration-none">INICIO</a></li>
+        <li><a href="#" class="text-white text-decoration-none">PROGRAMAS Y PAGOS</a></li>
+        <li><a href="#" class="text-white text-decoration-none">NUESTRO EQUIPO</a></li>
+    </ul>
+
+    <!-- Perfil de usuario con menú desplegable en la esquina superior derecha -->
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="text-end d-none d-sm-block">
+                <span class="d-block fw-bold" style="font-size: 14px;">Carlos</span>
+                <span class="d-block" style="font-size: 11px; color: #ADFF2F;">Administrador</span>
+            </div>
+            <img src="~/images/imagen predeterminada.jpg" alt="Foto de perfil" class="rounded-circle border" width="40" height="40" style="object-fit: cover; border-color: #ADFF2F !important;" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="background-color: #1a1a1a; border: 1px solid #333;">
+            <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+            <li><hr class="dropdown-divider" style="border-color: #333;"></li>
+            <li><a class="dropdown-item text-danger" href="#">Cerrar Sesión</a></li>
         </ul>
-
-        <!-- Perfil de usuario con menú desplegable en la esquina superior derecha -->
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="text-end d-none d-sm-block">
-                    <!-- Nombre dinámico desde la sesión (clave: UsuarioNombre) -->
-                    <span class="d-block fw-bold" style="font-size: 14px;">
-                        @(HttpContextAccessor.HttpContext?.Session.GetString("UsuarioNombre") ?? "Usuario")
-                    </span>
-                    <!-- Rol dinámico desde la sesión (clave: UsuarioRol) -->
-                    <span class="d-block" style="font-size: 11px; color: #ADFF2F;">
-                        @(HttpContextAccessor.HttpContext?.Session.GetString("UsuarioRol") ?? "Invitado")
-                    </span>
-                </div>
-                <!-- Foto de perfil dinámica obtenida desde la sesión -->
-                <img src="@fotoPerfil" alt="Foto de perfil" class="rounded-circle border" width="40" height="40" style="object-fit: cover; border-color: #ADFF2F !important;" />
-            </a>
-
-            <!-- Menú desplegable habilitado -->
-            <ul class="dropdown-menu dropdown-menu-end text-small shadow py-2" aria-labelledby="dropdownUser1" style="background-color: #1a1a1a; border: 1px solid #333;">
-                <li>
-                    <a class="dropdown-item dropdown-item-fitboom text-white py-2 px-3 d-flex align-items-center gap-2" asp-controller="Account" asp-action="Perfil">
-                        <i class="bi bi-person"></i> Ver Perfil
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item dropdown-item-fitboom text-white py-2 px-3 d-flex align-items-center gap-2" asp-controller="Account" asp-action="Configuracion">
-                        <i class="bi bi-gear"></i> Configuración
-                    </a>
-                </li>
-                <li><hr class="dropdown-divider my-1" style="border-color: #333;"></li>
-                <li>
-                    <a class="dropdown-item dropdown-item-fitboom text-danger py-2 px-3 d-flex align-items-center gap-2" asp-controller="Account" asp-action="Logout">
-                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    </div>
+</nav>
 
     <div class="container">
         <main role="main" class="pb-3">
